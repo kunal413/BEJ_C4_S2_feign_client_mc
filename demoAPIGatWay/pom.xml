@@ -12,43 +12,22 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.niit.jap</groupId>
-	<artifactId>UserTrackService</artifactId>
+	<artifactId>demoAPIGatWay</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>UserTrackService</name>
+	<name>demoAPIGatWay</name>
 	<description>Demo project for Spring Boot</description>
-    <properties>
-        <java.version>11</java.version>
+	<properties>
+		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.5</spring-cloud.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
+	</properties>
 	<dependencies>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-data-jpa</artifactId>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.4.0-b180830.0359</version>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
 		</dependency>
 
 		<dependency>
@@ -68,6 +47,13 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<repositories>
+			<repository>
+				<id>spring-milestones</id>
+				<name>Spring Milestones</name>
+				<url>https://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>

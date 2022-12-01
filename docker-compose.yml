@@ -5,34 +5,42 @@ services:
     container_name: track-service
     build: UserTrackService/
     restart: always
-    network_mode: mynetwork
+    networks:
+      - mynetwork
     ports:
       - 64100:64100
     depends_on:
       - mongoService
+      - apigateway
+      - eureka-service
 
   mongoService:
     image: mongo
     container_name: mongoService
     ports:
       - 27017:27017
-    network_mode: mynetwork
+    networks:
+      - mynetwork
 
   authentication-service:
     image: authentication_image
     container_name: authentication-service
     build: UserAuthentication/
     restart: always
-    network_mode: mynetwork
+    networks:
+      - mynetwork
     ports:
       - 64200:64200
     depends_on:
       - mysqlService
+      - apigateway
+      - eureka-service
 
   mysqlService:
     image: mysql:latest
     container_name: mysqlService
-    network_mode: mynetwork
+    networks:
+      - mynetwork
     ports:
       - 3306:3306
 
@@ -41,3 +49,25 @@ services:
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  apigateway:
+    container_name: apigateway
+    build: demoAPIGatWay/
+    networks:
+      - mynetwork
+    ports:
+      - 9500:9500
+    depends_on:
+      - eureka-service
+  eureka-service:
+    container_name: eureka-service
+    build: eurekademo/
+    restart: always
+    networks:
+      - mynetwork
+    ports:
+      - 8761:8761
+
+networks:
+  mynetwork:
+    driver: bridge

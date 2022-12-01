@@ -32,6 +32,8 @@
 	<modules>
 		<module>UserTrackService</module>
 		<module>UserAuthentication</module>
+		<module>demoAPIGatWay</module>
+		<module>eurekademo</module>
 	</modules>
 
 	<build>
