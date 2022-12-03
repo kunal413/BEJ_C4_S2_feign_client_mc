@@ -3,8 +3,10 @@ package com.niit.jap.service;
 import com.niit.jap.domain.Track;
 import com.niit.jap.domain.User;
 import com.niit.jap.exception.TrackAlreadyExitsException;
+import com.niit.jap.proxy.UserProxy;
 import com.niit.jap.repository.UserTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -14,6 +16,8 @@ import java.util.List;
 public class UserTrackServiceImpl implements UserTrackService {
     public UserTrackRepository userTrackRepository;
     @Autowired
+    public UserProxy userProxy;
+    @Autowired
     public UserTrackServiceImpl(UserTrackRepository userTrackRepository){
         this.userTrackRepository=userTrackRepository;
     }
@@ -22,7 +26,12 @@ public class UserTrackServiceImpl implements UserTrackService {
         if(userTrackRepository.findById(user.getEmail()).isPresent()){
             throw  new TrackAlreadyExitsException();
         }
-        return userTrackRepository.insert(user);
+        User saveUser = userTrackRepository.save(user);
+        if (!(saveUser.getEmail().isEmpty())){
+            ResponseEntity responseEntity = userProxy.saveUser(user);
+            System.out.println(responseEntity.getBody());
+        }
+        return saveUser;
     }
 
     @Override
